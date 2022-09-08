@@ -1,0 +1,22 @@
+CREATE DATABASE Finaxis_F
+
+USE Finaxis_F
+
+CREATE TABLE [dbo].[Fidics_f](
+[ID] [int] NOT NULL,
+[CNPJ_FUNDO] [varchar] (700) NOT NULL,              
+[DENOM_SOCIAL] [varchar] (700) NOT NULL,             
+[DT_COMPTC]  [varchar] (700) NOT NULL,                
+[TAB_IV_A_VL_PL]  [float] NOT NULL,         
+[TAB_IV_B_VL_PL_MEDIO]  [float] NOT NULL,  
+[ANO]  [varchar] (700) NOT NULL,                    
+[MES]   [varchar] (700) NOT NULL,                   
+[DIA]    [varchar] (700) NOT NULL,                  
+[CNPJ_ADMIN] [varchar] (700) NOT NULL,             
+[ADMIN]      [varchar] (700) NOT NULL,             
+[MES_ANO] [varchar] (700) NOT NULL,
+[POR_MERC_ANO_%] [varchar] (700) NOT NULL)
+
+
+
+SELECT * FROM Fidics_F

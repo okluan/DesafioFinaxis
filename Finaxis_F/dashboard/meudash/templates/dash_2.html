@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Getting Started with Chart JS with www.chartjs3.com</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+      .chartMenu {
+        width: 100vw;
+        height: 40px;
+        background: #1A1A1A;
+        color: #012169;
+      }
+      .chartMenu p {
+        padding: 10px;
+        font-size: 20px;
+      }
+      .chartCard {
+        width: 100vw;
+        height: calc(100vh - 40px);
+        background: #012169 ;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .chartBox {
+        width: 700px;
+        padding: 20px;
+        border-radius: 20px;
+        border: solid 3px #012169 ;
+        background: white;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="container">
+      <header class="d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+          <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Gráfico I</a></li>
+        </ul>
+      </header>
+    </div>
+
+   
+    <div class="chartCard">
+      <div class="chartBox">
+        <canvas id="myChart"></canvas>
+
+       
+        <select id = "mouth" onchange = "changeFinancial()" style="margin :40px 0px 0px 0px;">
+          <option value = "01 - 2021"> 01 - 2021 </option>
+          <option value = "02 - 2021"> 02 - 2021</option>
+          <option value = "03 - 2021"> 03 - 2021</option>
+          <option value = "04 - 2021"> 04 - 2021</option>
+          <option value = "05 - 2021"> 05 - 2021</option>
+        </select>
+        
+        <button onclick="funcReset()">Resetar Escolha</button>
+
+    </div>
+
+   <div>
+
+    
+
+  </div>
+  </div>
+
+     
+  
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+
+    const rotulos = [{% for dado_dash in dados_dash_2 %} '{{dado_dash.mes_ano}}', {% endfor %}]
+    const dados = [{% for dado_dash in dados_dash_2 %} {{dado_dash.tab_vl_pl}}, {% endfor %}]
+
+    const a = rotulos[2]
+    const b = dados[2]
+
+    rotulos.splice(rotulos.indexOf(a), 1);
+    dados.splice(dados.indexOf(a), 1);
+
+    rotulos.push(a)
+    dados.push(b)
+    
+   const rotulos_ = rotulos
+   const dados_ = dados
+
+    console.log(a)
+    // setup 
+    const data = {
+
+      labels: rotulos,
+      datasets: [{
+        label: 'Mil Milhões',
+        data: dados,
+        backgroundColor: [
+          '#012169 ',
+          '#1C5537',
+          '#2A83BE',
+          '#198F4A',
+          '#0097CC',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(0, 0, 0, 0.2)'
+        ],
+        borderColor: [
+        '#012169 ',
+        '#1C5537',
+        '#2A83BE',
+        '#198F4A',
+        '#0097CC',
+        'rgba(255, 159, 64, 1)',
+        'rgba(0, 0, 0, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    // config 
+    const config = {
+      type: 'bar',
+      data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    };
+
+    // render init block
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+
+    
+    
+function changeFinancial(){
+  
+    const nova_rotulos = [];
+    const nova_dados = []; 
+  
+
+  const mouth_ = document.getElementById('mouth');
+  const indice = rotulos.indexOf(mouth_.value);
+  nova_rotulos.push(rotulos[indice])
+  nova_dados.push(dados[indice])
+  //console.log(nova_xValues)
+
+  myChart.data.labels = nova_rotulos;
+  myChart.data.datasets.data = nova_dados;
+
+  myChart.update()
+
+}
+
+function funcReset(){
+
+  myChart.data.labels = rotulos ;
+  myChart.data.datasets.data = dados;
+
+  myChart.update()
+
+}
+
+
+
+    </script>
+
+  </body>
+</html>
